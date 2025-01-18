@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Button from "./components/Button";
 import SelectForm from "./components/Form/SelectForm";
 import TextAreaForm from "./components/Form/TextAreaForm";
@@ -32,31 +31,6 @@ function App() {
     localStorage.setItem("difficulty", event.currentTarget.id);
     // CHANGE ON FAILURE BEHAVIOUR
   }
-
-  const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
-    console.log(response.data.fruits)
-  }
-
-  const userStudy = {
-    study: "statistics" 
-  };
-
-  const postAPI = async() => {
-    try{
-      const response = await axios.post("http://localhost:8080/verify", userStudy)
-      console.log(response.data)
-    }
-    catch (error){
-      console.error("Error in request")
-    }
-  }
-
-  useEffect(() => {
-    fetchAPI();
-    postAPI();
-  }, []);
-
 
   return (
     <>
