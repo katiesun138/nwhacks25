@@ -1,14 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  const fetchAPI = async () => {
+    const response = await axios.get("http://localhost:8080/api");
+    console.log(response.data.fruits)
+  }
+
+  const userStudy = {
+    study: "statistics" 
+  };
+
+  const postAPI = async() => {
+    try{
+      const response = await axios.post("http://localhost:8080/verify", userStudy)
+      console.log(response.data)
+    }
+    catch (error){
+      console.error("Error in request")
+    }
+  }
+
+  useEffect(() => {
+    fetchAPI();
+    postAPI();
+  }, []);
+
+
   return (
     <>
-      <div>
+      <div className='flex justify-center'>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
