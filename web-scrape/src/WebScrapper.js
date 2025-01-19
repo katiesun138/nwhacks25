@@ -46,7 +46,7 @@ export function extractTextFromHtml(html) {
         console.warn('Warning: Extracted text is empty. Check the structure of the page.');
     }
 
-    // console.log("\n\n\n\n\n\n\nTESTING SCRAPED TEXT IN WEBSCRAPER", text)
+    console.log("\n\n\n\n\n\n\ gather text from raw scrape", text)
     return text;
 }
 
@@ -65,26 +65,33 @@ const askForSimilarity = async (text1, listofString) => {
     const cleanList = listofString.map(item => item.replace(/^\d+\.\s*/, "").trim());
     const combineKeywords = cleanList.join(" ");
     console.log(" \n\n\n\n\n\n\n\n\n\nHERE IS THE COMBINE", combineKeywords);
+    console.log(" \n\n\n\n\n\n\n\n\n\nHERE IS text 1", text1);
 
     try {
-        const completion = await openai.chat.completions.create({
+        
+        // Second API call to analyze if the texts are related
+        const completionResponse = await openai.chat.completions.create({
             model: "openchat/openchat-7b:free",
             messages: [
                 {
                     "role": "user",
-                    "content": `${combineKeywords} compared with ${text1} how related are these two texts, return only one number, 1 for related, 0 for unrelated topics, nothing more`,
+                    "content": `Please analyze the following two pieces of text and determine if they are discussing the same general topic. 1. Text 1: ${text1} 2. Keywords: ${combineKeywords}. reply with "true" or "false" only. No other explanation.`,
                 }
             ]
         });
     
+        const completion = completionResponse.choices[0].message.content;  // Extract the response
+        console.log("completion", completion)
         if (completion && completion.choices && completion.choices.length > 0) {
             const message = completion.choices[0].message.content;
             console.log("THIS IS WITHIN WEB SCRAPER:", message);
     
+            //put message into setiment analysis
+
             // Check if the message contains '1' or '0' and return a boolean value
-            if (message.includes('1')) {
+            if (message.includes("true")|| messages.includes("yes")) {
                 return true; // Texts are related
-            } else if (message.includes('0')) {
+            } else if (message.toLowerCase().includes("false") || message.toLowerCase().includes("no") ) {
                 return false; // Texts are unrelated
             } else {
                 console.warn('Unexpected response format:', message);
@@ -94,9 +101,10 @@ const askForSimilarity = async (text1, listofString) => {
             console.error('Error: No valid choices in OpenAI response', completion);
             return null;
         }
+    
+    
     } catch (error) {
-        console.error('Error with OpenAI API request:', error);
-        return null;
+        console.error("Error:", error);
     }
     
 };
@@ -128,11 +136,13 @@ export async function processUrl(url, wordBank) {
     }
 
     const keywords = extractKeywords(text);
+    console.log("\n\n\n\n\nHERE IS THE  EXTRACTED TEXT", text);
+
     const combinedKeywords = keywords.map((item) => item[0]).join(' ')
     console.log("\n\n\n\n\nHERE IS THE COMBINED KEYWORDS FROM EXTRACTED", combinedKeywords);
 
 
-    return askForSimilarity(combinedKeywords, wordBank)
+    return askForSimilarity(text, wordBank)
     // console.log(distanceSim)
 
 }
