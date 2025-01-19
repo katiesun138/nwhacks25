@@ -54,10 +54,12 @@ function Name ({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
     return (
         <div className="h-[200px] bg-bg-dark overflow-hidden mt-4">
             <motion.div
+            initial={{ opacity:0 }}
+            whileInView={{ opacity: 1 }}
                 style={{ y }}
                 className="h-full bg-bg-dark text-pretty text-2xl font-bold flex justify-center gap-10 items-center p-5"
             >
-                onTrack @nwHacks 2025
+                onTrack @ nwHacks 2025
             </motion.div>
         </div>
     );

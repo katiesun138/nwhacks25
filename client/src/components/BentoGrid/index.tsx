@@ -11,11 +11,12 @@ export default function BentoGrid({
             <BentoItem
             key={index}
             className={
-                index === 0 ? "col-span-3" :
-                index === 1 ? "col-span-2" :
+                index === 0 ? "lg:col-span-2 sm:col-span-3 col-span-2 " :
+                index === 1 ? "col-span-3" :
                 index === 2 ? "row-span-2" :
-                index === 5 ? "row-span-2 col-span-2" :
-                index === 6 ? "col-span-2" : ""
+                index === 3 ? "col-span-2" :
+                index === 5 ? "row-span-2" :
+                index === 6 ? "col-span-1" : ""
             }
             >
             {item}

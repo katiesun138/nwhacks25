@@ -1,5 +1,29 @@
-import { motion, } from "motion/react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollToPlugin);
 export default function NavBar() {
+  const [optionsPageUrl, setOptionsPageUrl] = useState("");
+
+  useEffect(() => {
+    const url = chrome.runtime?.getURL
+      ? chrome.runtime.getURL("options.html")
+      : // INSERT WEBSITE LINK INSTEAD
+        "#";
+    setOptionsPageUrl(url);
+  }, []);
+
+  const handleHomeClick = () => {
+    gsap.to(window, { duration: 0.5, scrollTo: "#home" });
+  };
+  const handleFeaturesClick = () => {
+    gsap.to(window, {
+      duration: 0.5,
+      scrollTo: { y: "#features", offsetY: 100 },
+    });
+  };
   return (
     <motion.nav
       className="w-full fixed flex items-center justify-center z-[1000] "
@@ -8,20 +32,25 @@ export default function NavBar() {
       transition={{ duration: 0.8 }}
     >
       <div className="flex bg-bg-dark rounded-xl items-center gap-4 max-w-screen-xl w-full justify-between py-4 mt-2 px-6 lg:px-4">
-        <h2 className="text-2xl font-bold">onTrack</h2>
-        <ul className="flex gap-8">
-          <li>
-            <a href="#home" className="text-lg">
+        <h2
+          onClick={() => handleHomeClick()}
+          className="text-2xl font-bold cursor-pointer"
+        >
+          onTrack
+        </h2>
+        <ul className="flex gap-4 md:gap-8">
+          <li onClick={() => handleHomeClick()}>
+            <p title="Home" className="text-lg cursor-pointer">
               Home
-            </a>
+            </p>
           </li>
-          <li>
-            <a href="#features" className="text-lg">
+          <li onClick={() => handleFeaturesClick()}>
+            <p title="Features" className="text-lg cursor-pointer">
               Features
-            </a>
+            </p>
           </li>
           <li>
-            <a href="#contact" className="text-lg">
+            <a href={optionsPageUrl} className="text-lg">
               Dashboard
             </a>
           </li>
