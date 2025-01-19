@@ -5,13 +5,15 @@ export default function TextArea({
   value,
   placeholderText = "Enter description of the task",
   onChange,
-  label = "Please enter description"
+  label = "Please enter description",
+  error = false
 }: {
   className?: string;
   value?: string;
   placeholderText?: string;
   onChange: (event:React.ChangeEvent<HTMLTextAreaElement>) => void;
   label?: string
+  error: boolean
 }) {
   return (
     <>
@@ -24,6 +26,7 @@ export default function TextArea({
         onChange={onChange}
         placeholder={placeholderText}
       ></textarea>
+    {error && <p className="text-red-600 -my-2">an error has occurred, please input a valid description</p>}
     </>
   );
 }
