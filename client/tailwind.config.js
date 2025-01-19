@@ -15,7 +15,10 @@ export default {
         "bg-primary": "#F5F5F5",
         "bg-dark": "#F0ECEC",
         "bg-light": "#EDEDED",
-      }
+      },
+      backgroundImage: {
+        'radial-gradient': 'radial-gradient(circle at 25% 25%, #f5f5f5, #FFEAEA)',
+      },
     },
   },
   plugins: [],
