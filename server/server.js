@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import axios from 'axios';
+import { getSimilarWords } from './similarWords.js';
 
 const app = express();
 
@@ -17,80 +18,11 @@ app.get("/api", (req, res) => {
 
 app.post("/verify", async (req, res) => {
     const keyword = req.body.study;
-    // console.log(keyword)
-
-    // const llama = {
-    //     method: 'POST',
-    //     url: 'https://open-ai21.p.rapidapi.com/conversationllama',
-    //     headers: {
-    //       'x-rapidapi-key': 'b1e1ab1091mshcc9d4bcef44cbf0p1f1095jsn68c0743c6ce6',
-    //       'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     data: {
-    //       messages: [
-    //         {
-    //           role: 'user',
-    //           content: `please only give me list of 50 words about topic: ${keyword}. Do not provide additional text.`
-    //         }
-    //       ],
-    //       web_access: false
-    //     }
-    //   };
-
-    const chatgpt = {
-    method: 'POST',
-    url: 'https://open-ai21.p.rapidapi.com/chatgpt',
-    headers: {
-        'x-rapidapi-key': 'b1e1ab1091mshcc9d4bcef44cbf0p1f1095jsn68c0743c6ce6',
-        'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
-        'Content-Type': 'application/json'
-    },
-    data: {
-        messages: [
-        {
-            role: 'user',
-            content: `please only give me list of 50 words about topic: ${keyword}. Do not provide additional text.`
-        }
-        ],
-        web_access: false
-    }
-    };
-
-    const gpt = {
-        method: 'POST',
-        url: 'https://open-ai21.p.rapidapi.com/conversationgpt35',
-        headers: {
-          'x-rapidapi-key': 'b1e1ab1091mshcc9d4bcef44cbf0p1f1095jsn68c0743c6ce6',
-          'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
-          'Content-Type': 'application/json'
-        },
-        data: {
-          messages: [
-            {
-              role: 'user',
-              content: `please only give me list of 50 words about topic: ${keyword}. Do not provide additional text.`
-            }
-          ],
-          web_access: false,
-          system_prompt: '',
-          temperature: 0.9,
-          top_k: 5,
-          top_p: 0.9,
-          max_tokens: 256
-        }
-      };
-      
-
-
+    console.log(keyword)
 
     //external API call
     try{
-        const response = await axios.request(gpt)
-        const resultList = response.data.result.split('\n')
-            .map(item => item.replace('*', '').trim()) // Remove the * and trim spaces
-            .filter(item => item !== ''); // Remove any empty items
-
+        const resultList = await getSimilarWords(keyword)
         console.log(resultList)
         res.send({ message: 'Received data', data: resultList});
 
