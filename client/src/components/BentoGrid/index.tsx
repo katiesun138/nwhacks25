@@ -26,7 +26,6 @@ export default function BentoGrid({
 }
 
 
-
 function BentoItem({
     children,
     className,
@@ -34,5 +33,5 @@ function BentoItem({
     children?: React.ReactNode
     className?: string
 }) {
-    return <div className={twMerge(`border-2 border-secondary rounded-lg p-4 min-h-[275px] ` + className)}>{children}</div>
+    return <div className={twMerge(`border-2 border-zinc-400 rounded-lg p-4 min-h-[250px] ` + className)}>{children}</div>
 }

@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -8,10 +7,18 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        popup: resolve(__dirname, 'popup.html'),
-        options: resolve(__dirname, 'options.html'),
+        popup: 'popup.html',  
+        options: 'options.html',
+      },
+      output: {
+        entryFileNames: (chunk) => {
+          if (chunk.name === 'background') {
+            return 'background.js';
+          }
+          return '[name].js'; 
+        },
       },
     },
+    outDir: 'dist', 
   },
-})
+});

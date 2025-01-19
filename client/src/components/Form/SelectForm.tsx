@@ -58,7 +58,6 @@ function RadioInput({
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      // const halfWidth = event.currentTarget.offsetWidth / 2;
       x.set(event.nativeEvent.offsetX);
     },
     [x]
@@ -103,7 +102,7 @@ function RadioInput({
                 transition={{ duration: 0.2 }}
               >
                 <div
-                  className="flex w-full items-center pointer justify-center gap-2 py-2 rounded-md"
+                  className="flex w-11/12 items-center pointer justify-center gap-2 h-full px-4 rounded-md"
                   onMouseMove={handleMouseMove}
                   onMouseEnter={() => setShowImage(true)}
                   onMouseLeave={() => setShowImage(false)}
@@ -126,7 +125,7 @@ function RadioInput({
               transition: {
                 stiffness: 260,
                 damping: 10,
-                duration: 0.3,
+                duration: 0.4,
               },
               width: "200px",
               height: "auto",
@@ -135,7 +134,7 @@ function RadioInput({
             style={{
               translateX: x,
             }}
-            className="absolute top-full mt-2 z-50"
+            className="absolute top-full mt-1 z-50"
           >
             <motion.div className="rounded-md overflow-hidden ">
               <iframe
