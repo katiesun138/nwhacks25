@@ -9,11 +9,11 @@ export default {
       colors: {
         'primary': "#272727",
         'primary-dark': "#131212",
-        'primary-light': "#403E3E",
+        'primary-light': "#2F2E2E",
         "secondary": "#292525",
-        'text:': "#211C1C",
+        'text:': "#1D1A1A",
         "bg-primary": "#F5F5F5",
-        "bg-dark": "#E5E5E5",
+        "bg-dark": "#F0ECEC",
         "bg-light": "#EDEDED",
       }
     },

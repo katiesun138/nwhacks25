@@ -1,4 +1,5 @@
 import BentoGrid from "../../components/BentoGrid";
+import Button from "../../components/Button";
 import SelectForm from "../../components/Form/SelectForm";
 import TextAreaForm from "../../components/Form/TextAreaForm";
 import { useEffect, useState } from "react";
@@ -50,7 +51,16 @@ function Dashboard() {
       onChange={changeDifficulty}
     />,
     <div></div>,
-    <div></div>,
+    <div className="flex flex-col gap-2">
+      <h2 className="font-bold text-xl">Welcome</h2>
+      <Button
+        onClick={() => {
+          setExtensionActivated(!extensionActivated);
+        }}
+      >
+        {extensionActivated ? "Pause" : "Activate"}
+      </Button>
+    </div>,
     <div></div>,
     <div></div>,
     <div></div>,

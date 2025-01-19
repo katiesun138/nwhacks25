@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import SelectForm from "../../components/Form/SelectForm";
 import TextAreaForm from "../../components/Form/TextAreaForm";
 import { useEffect, useState } from "react";
+import { FaX } from "react-icons/fa6";
 
 function Popup() {
   const [currentTopic, setCurrentTopic] = useState(
@@ -62,10 +63,10 @@ function Popup() {
   return (
     <>
       <div className="container mx-auto p-4 flex flex-col gap-3 rounded-lg border-2 min-w-[500px]">
-        {/* <nav className="flex justify-end gap-2">
-          <button onClick={()=>{}}>x</button>
-        </nav> */}
-        <div className="text-center">
+        <nav className="flex justify-end gap-2">
+          <FaX />
+        </nav>
+        <div className="">
           <h1 className="font-bold text-4xl">OnTrack</h1>
         </div>
         <div className="flex flex-col gap-1">

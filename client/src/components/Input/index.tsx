@@ -26,7 +26,7 @@ export default function TextArea({
         onChange={onChange}
         placeholder={placeholderText}
       ></textarea>
-    {error && <p className="text-red-600 -my-2">an error has occured</p>}
+    {error && <p className="text-red-600 -my-2">an error has occurred, please input a valid description</p>}
     </>
   );
 }
