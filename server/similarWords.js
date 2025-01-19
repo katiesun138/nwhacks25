@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {OpenAI} from 'openai';
+
 
 const getSimilarWords = async(keyword) => {
 
@@ -40,6 +42,23 @@ const getSimilarWords = async(keyword) => {
         }
         };
     
+
+    // const openai = new OpenAI({
+    //     baseURL: "https://openrouter.ai/api/v1",
+    //     apiKey: "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",
+    // })
+
+    // const completion = await openai.chat.completions.create({
+    //     model: "openchat/openchat-7b:free",
+    //     messages: [
+    //       {
+    //         "role": "user",
+    //         "content": `${combineKeywords} compared with ${text1} how related are these two texts, return 1 for related, 0 for unrelated topics`,
+    //       }
+    //     ]
+    //   })
+
+    // console.log(completion.choices[0].message)
     // const gpt = {
     //     method: 'POST',
     //     url: 'https://open-ai21.p.rapidapi.com/conversationgpt35',

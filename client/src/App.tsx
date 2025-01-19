@@ -24,6 +24,13 @@ function App() {
   function changeTopic(value: string) {
     setCurrentTopic(value);
     localStorage.setItem("currentTopic", value);
+
+    const userStudy = {
+      study: value 
+    };
+    postAPI(userStudy);
+
+
     // SEND API REQUEST TO NEW TOPIC
   }
 
@@ -33,16 +40,7 @@ function App() {
     // CHANGE ON FAILURE BEHAVIOUR
   }
 
-  const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
-    console.log(response.data.fruits)
-  }
-
-  const userStudy = {
-    study: "statistics" 
-  };
-
-  const postAPI = async() => {
+  const postAPI = async(userStudy) => {
     try{
       const response = await axios.post("http://localhost:8080/verify", userStudy)
       console.log(response.data)
@@ -51,11 +49,6 @@ function App() {
       console.error("Error in request")
     }
   }
-
-  useEffect(() => {
-    fetchAPI();
-    postAPI();
-  }, []);
 
 
   return (
