@@ -2,7 +2,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
-
 // Stopwords list (can be loaded dynamically if needed)
 const stopwords = new Set([
     'the', 'is', 'in', 'and', 'to', 'a', 'of', 'it', 'that', 'on', 'for', 'with', 'as',
@@ -11,7 +10,7 @@ const stopwords = new Set([
 ]);
 
 // Fetch website content with improved error handling
-async function fetchWebsiteContent(url) {
+export async function fetchWebsiteContent(url) {
     try {
         const response = await axios.get(url, { timeout: 10000 }); // 10-second timeout
         return response.data;
@@ -26,7 +25,7 @@ async function fetchWebsiteContent(url) {
 }
 
 // Extract text from HTML, handling edge cases
-function extractTextFromHtml(html) {
+export function extractTextFromHtml(html) {
     const $ = cheerio.load(html);
 
     // Remove script and style tags
@@ -43,7 +42,7 @@ function extractTextFromHtml(html) {
 }
 
 // Extract keywords with enhancements
-function extractKeywords(text, numKeywords = 10) {
+export function extractKeywords(text, numKeywords = 10) {
     const words = text
         .toLowerCase()
         .replace(/[^a-zA-Z\s]/g, '') // Remove non-alphanumeric characters
@@ -68,8 +67,8 @@ function extractKeywords(text, numKeywords = 10) {
         .slice(0, numKeywords);
 }
 
-// Main function with better UX and logging
-async function main(url) {
+// Main function that processes a given URL directly
+export async function processUrl(url) {
     console.log(`Fetching content from: ${url}`);
 
     const htmlContent = await fetchWebsiteContent(url);
@@ -91,20 +90,7 @@ async function main(url) {
     }
 
     console.log(`Top keywords from ${url}:`);
-
-    console.log(keywords);
     keywords.forEach(([keyword, count]) => {
         console.log(`${keyword}: ${count}`);
     });
 }
-
-// Command-line argument handling
-const inputUrl = process.argv[2];
-if (!inputUrl) {
-    console.error('Please provide a URL as an argument. Usage: node script.js <URL>');
-    process.exit(1);
-}
-
-main(inputUrl).catch(error => {
-    console.error(`Unexpected error: ${error}`);
-});
