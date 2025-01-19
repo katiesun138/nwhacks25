@@ -64,7 +64,9 @@ const askForSimilarity = async (text1, listofString) => {
         apiKey: `${process.env.OPENAI_API_KEY}`,
     })
 
-    const combineKeywords = listofString.join(" ")
+    const cleanList = listofString.map(item => item.replace(/^\d+\.\s*/, "").trim());
+
+    const combineKeywords = cleanList.join(" ")
     console.log( " \n\n\n\n\n\n\n\n\n\nHERE IS THE COMBINE", combineKeywords)
 
     const completion = await openai.chat.completions.create({

@@ -33,13 +33,20 @@ app.post("/verify", async (req, res) => {
         const url = "https://en.wikipedia.org/wiki/statistics"; // URL is passed directly
 
         const similarOrNot = await processUrl(url, resultList)
-        console.log("IS THIS SIMILAR", similarOrNot)
+        console.log("IS THIS SIMILAR", similarOrNot.content == 1)
+        
+        //this means that there are NO similarities between the sraped page and study
+        // if (similarOrNot.content == 0){
+        //    //we want to redirect to a blockhtml file
+        // }
+        
         res.send({ message: 'Received data', data: resultList});
 
     }
     catch (error){
         console.error(error)
     }
+    
 }
 )
 
