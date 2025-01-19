@@ -25,7 +25,7 @@ function LandingPage() {
     setPageTransition(true);
     setTimeout(() => {
       window.location.href = "/options";
-    }, 1500);
+    }, 1200);
   };
   return (
     <>

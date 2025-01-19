@@ -1,24 +1,39 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// import { defineConfig } from 'vite'
+// import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// // https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [react()],
+// })
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import copy from 'rollup-plugin-copy';  // Import the copy plugin
+
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
       input: {
-        popup: 'popup.html',  
+        main: './index.html',
+        background: './src/background.js',  // Your background.js entry
+        popup: 'popup.html',
         options: 'options.html',
       },
       output: {
-        entryFileNames: (chunk) => {
-          if (chunk.name === 'background') {
-            return 'background.js';
-          }
-          return '[name].js'; 
-        },
+        entryFileNames: '[name].js',  // Preserve file name
       },
+      plugins: [
+        copy({
+          targets: [
+            {
+              src: 'src/background.js',  // Path to your background script
+              dest: 'public',             // Output to public folder
+            },
+          ],
+        }),
+      ],
     },
-    outDir: 'dist', 
   },
 });
