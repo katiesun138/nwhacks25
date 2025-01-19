@@ -44,7 +44,7 @@ export function extractTextFromHtml(html) {
         console.warn('Warning: Extracted text is empty. Check the structure of the page.');
     }
 
-    console.log("\n\n\n\n\n\n\nTESTING SCRAPED TEXT IN WEBSCRAPER", text)
+    // console.log("\n\n\n\n\n\n\nTESTING SCRAPED TEXT IN WEBSCRAPER", text)
     return text;
 }
 
@@ -53,65 +53,13 @@ export function extractTextFromHtml(html) {
 
 
 //Katie testing implementaiton ------------------------------------------------------------------------------------------------
-const keywordBank = [
-    'Data',
-    'Measurement',
-    'Analysis',
-    'Probability',
-    'Inference',
-    'Population',
-    'Sample',
-    'Mean',
-    'Median',
-    'Mode',
-    'Standard deviation',
-    'Variance',
-    'Percentile',
-    'Correlation',
-    'Regression',
-    'Hypothesis testing',
-    'Confidence interval',
-    'P-value',
-    'Significance level',
-    'Chi-square test',
-    'T-test',
-    'ANOVA',
-    'Frequency distribution',
-    'Histogram',
-    'Box plot',
-    'Scatter plot',
-    'Normal distribution',
-    'Standard error',
-    'Sampling distribution',
-    'Non-parametric test',
-    'Bayesian statistics',
-    'Descriptive statistics',
-    'Inferential statistics',
-    'Exploratory data analysis',
-    'Confirmatory data analysis',
-    'Multivariate analysis',
-    'Time series analysis',
-    'Survival analysis',
-    'Predictive modeling',
-    'Resampling methods',
-    'Cross-validation',
-    'Bootstrapping',
-    'Permutation test',
-    'Data mining',
-    'Big data',
-    'Machine learning',
-    'Deep learning',
-    'Data visualization',
-    'Data interpretation',
-    'Data-driven decisions.'
-  ]
 
 const askForSimilarity = async (text1, listofString) => {
 
     //openAI api key auth
     const openai = new OpenAI({
         baseURL: "https://openrouter.ai/api/v1",
-        apiKey: "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",
+        apiKey: "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",
     })
 
     const combineKeywords = listofString.join(" ")
@@ -122,18 +70,18 @@ const askForSimilarity = async (text1, listofString) => {
         messages: [
           {
             "role": "user",
-            "content": `${combineKeywords} compared with ${text1} how related are these two texts, return 1 for related, 0 for unrelated topics`,
+            "content": `${combineKeywords} compared with ${text1} how related are these two texts, return only one number, 1 for related, 0 for unrelated topics, nothing more`,
           }
         ]
       })
-
-    console.log(completion.choices[0].message)
+      console.log("THIS IS WITHINWEB SCRAPER" , completion.choices[0].message)
+    return completion.choices[0].message
 
     // const distance = natural.JaroWinklerDistance(text1, combineKeywords);
     // return distance
 }
 
-export async function processUrl(url) {
+export async function processUrl(url, wordBank) {
     console.log(`Fetching content from: ${url}`);
 
     const htmlContent = await fetchWebsiteContent(url);
@@ -153,15 +101,10 @@ export async function processUrl(url) {
     console.log("\n\n\n\n\nHERE IS THE COMBINED KEYWORDS FROM EXTRACTED", combinedKeywords);
 
 
-    askForSimilarity(combinedKeywords, keywordBank)
+    return askForSimilarity(combinedKeywords, wordBank)
     // console.log(distanceSim)
 
 }
-
-
-
-
-
 
 
 

@@ -1,9 +1,11 @@
 {
-    "manifest_version": 3,
-    "version": "1.0.0",
-    "name": "My First Vite App",
-    "action":{
-        "default_popup": "index.html"
-    },
-    "permissions": ["tabs"]
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "name": "onTrack",
+  "description": "Stay focused with onTrack",
+  "options_page": "options.html",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["tabs", "storage", "activeTab"]
 }
