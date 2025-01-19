@@ -1,6 +1,8 @@
 import Section from "../../Section";
 export default function ModeSection() {
-    <Section className="">
+    return <Section className="">
+        <div className="grid grid-cols-2">
 
+        </div>
     </Section>
 }

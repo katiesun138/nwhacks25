@@ -59,7 +59,6 @@ export default function HeroSection({ onExit }: { onExit: () => void }) {
           </div>
         </div>
         <div className="flex items-end justify-end">
-          <Scene />
         </div>
       </div>
     </GradientSection>

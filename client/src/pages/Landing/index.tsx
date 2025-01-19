@@ -1,12 +1,12 @@
 import Footer from "../../components/Footer";
 import HeroSection from "../../components/Landing/HeroSection";
-import Section from "../../components/Section";
 import InfoSection from "../../components/Landing/InfoSection";
 import CTASection from "../../components/Landing/CTA";
 import { useEffect, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import NavBar from "../../components/NavBar";
 import { motion } from "motion/react";
+import ModeSection from "../../components/Landing/ModeSection";
 function LandingPage() {
   useEffect(() => {
     const lenis = new Lenis();
@@ -38,7 +38,7 @@ function LandingPage() {
       >
         <HeroSection onExit={onPageTransition} />
         <InfoSection />
-        <Section className=""></Section>
+        <ModeSection/>
         <CTASection />
         <Footer />
       </motion.div>
