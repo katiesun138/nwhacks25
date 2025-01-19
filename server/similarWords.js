@@ -16,7 +16,7 @@ const getSimilarWords = async (keyword) => {
             messages: [
                 {
                     "role": "user",
-                    "content": `just give me a numbered list of 50 words about topic: ${keyword}. Do not provide additional text.`,
+                    "content": `just give me 50 individual keywords formatted as a numbered list of 50 keywords about topic: ${keyword}. Do not provide additional text.`,
                 }
             ]
         });

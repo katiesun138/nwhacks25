@@ -3,6 +3,8 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import {OpenAI} from 'openai';
 import dotenv from 'dotenv';
+import natural from 'natural';
+
 dotenv.config();
 
 // import natural from 'natural'
@@ -49,7 +51,6 @@ export function extractTextFromHtml(html) {
     // console.log("\n\n\n\n\n\n\nTESTING SCRAPED TEXT IN WEBSCRAPER", text)
     return text;
 }
-
 
 
 
@@ -107,7 +108,7 @@ const isGoogleSearch = (url) => {
     return googleSearchPattern.test(url);
 };
 
-export async function processUrl(url, wordBank) {
+export async function processUrl(url, promptTopicWordBank) {
     console.log(`Fetching content from: ${url}`);
 
     if (isGoogleSearch(url)) {
@@ -131,12 +132,75 @@ export async function processUrl(url, wordBank) {
     const combinedKeywords = keywords.map((item) => item[0]).join(' ')
     console.log("\n\n\n\n\nHERE IS THE COMBINED KEYWORDS FROM EXTRACTED", combinedKeywords);
 
+    console.log("Here is the word bank", promptTopicWordBank);
 
-    return askForSimilarity(combinedKeywords, wordBank)
-    // console.log(distanceSim)
+    return isSimilar(combinedKeywords, promptTopicWordBank);
+    // return askForSimilarity(combinedKeywords, promptTopicWordBank)
 
 }
 
+function cosineSimilarity(vec1, vec2) {
+    if (!Array.isArray(vec1) || !Array.isArray(vec2)) {
+        throw new Error('Input vectors must be arrays');
+    }
+    const dotProduct = vec1.reduce((sum, val, i) => sum + val * vec2[i], 0);
+    const magnitude1 = Math.sqrt(vec1.reduce((sum, val) => sum + val * val, 0));
+    const magnitude2 = Math.sqrt(vec2.reduce((sum, val) => sum + val * val, 0));
+    return dotProduct / (magnitude1 * magnitude2);
+}
+
+// function getTfidfVector(tfidf, text) {
+//     return new Promise((resolve, reject) => {
+//         tfidf.tfidfs(text, (i, measure) => {
+//             resolve(measure);
+//         });
+//     });
+// }
+
+function generateVectors(tfidf, documents){
+    // Get the full vocabulary (all unique terms)
+    const vocabulary = new Set();
+    tfidf.documents.forEach(doc => {
+        Object.keys(doc).forEach(term => vocabulary.add(term));
+    });
+
+    const vocabArray = Array.from(vocabulary);
+    console.log("Vocabulary:", vocabArray); // Added for debugging
+
+
+    // Create vectors for each document
+    return documents.map((doc, docIndex) => {
+        const vector = new Array(vocabArray.length).fill(0); // Changed to initialize vector with zeros
+        vocabArray.forEach((term, termIndex) => {
+            vector[termIndex] = tfidf.tfidf(term, docIndex); // Changed to correctly set TF-IDF values
+        });
+        return vector;
+    });
+}
+
+async function isSimilar(text1, text2) {
+    console.log("Text1:", text1);
+    console.log("Text2:", text2);
+    const TfIdf = natural.TfIdf;
+    const tokenizer = new natural.WordTokenizer();
+    const tokens1 = tokenizer.tokenize(text1);
+    const tokens2 = tokenizer.tokenize(text2.slice(1).join(" "));
+    // Example with TF-IDF
+    const tfidf = new TfIdf();
+    tfidf.addDocument(tokens1.join(' '));
+    tfidf.addDocument(tokens2.join(' '));
+    console.log("Documents added to TF-IDF model:");
+    console.log(tfidf.documents); // Added for debugging
+
+    const [vector1, vector2] = generateVectors(tfidf, [text1, text2]);
+    console.log("Vector1:", vector1);
+    console.log("Vector2:", vector2);
+
+    const similarity = cosineSimilarity(vector1, vector2);
+    console.log(`Cosine Similarity: ${similarity}`);
+    const threshold = 0.000005;
+    return similarity > threshold;
+}
 
 
 //END -------------------------------------------------------------------------------------------------------------------------
