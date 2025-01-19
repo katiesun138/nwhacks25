@@ -31,7 +31,6 @@ function App() {
     };
     postAPI(userStudy);
 
-
     // SEND API REQUEST TO NEW TOPIC
   }
 
