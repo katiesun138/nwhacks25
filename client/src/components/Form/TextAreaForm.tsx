@@ -12,9 +12,11 @@ export default function TextAreaForm({
   placeholderText?: string;
 }) {
   const [inputValue, setInputValue] = useState("");
-
+  const [error, setError] = useState(false);
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if(inputValue === ""){ setError(true); return; }
+    setError(false);
     changeTopic(inputValue);
     setInputValue("");
   };
@@ -22,6 +24,7 @@ export default function TextAreaForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
       <Input
+        error={error}
         label={labelText}
         value={inputValue}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {

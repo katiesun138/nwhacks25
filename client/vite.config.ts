@@ -1,33 +1,39 @@
+// import { defineConfig } from 'vite'
+// import react from '@vitejs/plugin-react'
+
+// // https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [react()],
+// })
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
-import { createHtmlPlugin } from 'vite-plugin-html';
+import copy from 'rollup-plugin-copy';  // Import the copy plugin
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
+// https://vitejs.dev/config/
 export default defineConfig({
-  css: {
-    postcss: './postcss.config.js',
-  },
-  plugins: [
-    react(),
-    viteStaticCopy({
-      targets: [
-        { src: 'background.js', dest: '.' },
-      ]
-    }),
-    createHtmlPlugin({
-      minify: true,
-    }),
-  ],
+  plugins: [react()],
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        blocked: resolve(__dirname, 'blocked.html'),
+        main: './index.html',
+        background: './src/background.js',  // Your background.js entry
+        popup: 'popup.html',
+        options: 'options.html',
       },
+      output: {
+        entryFileNames: '[name].js',  // Preserve file name
+      },
+      plugins: [
+        copy({
+          targets: [
+            {
+              src: 'src/background.js',  // Path to your background script
+              dest: 'public',             // Output to public folder
+            },
+          ],
+        }),
+      ],
     },
   },
 });

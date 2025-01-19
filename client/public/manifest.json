@@ -1,15 +1,12 @@
 {
     "manifest_version": 3,
     "version": "1.0.0",
-    "name": "My First Vite App",
+    "name": Block Sites Based on Similarity",
     "action":{
-        "default_popup": "index.html"
+        "default_popup": "popup.html"
     },
-    "permissions": ["tabs"],
+    "permissions": ["tabs","webNavigation", "activeTab", "storage"]
     "host_permissions" : [
         "<all_urls>"
     ],
-    "background": {
-        "service_worker": "background.js"
-    }
 }
