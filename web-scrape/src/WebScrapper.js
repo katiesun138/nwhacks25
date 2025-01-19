@@ -57,36 +57,63 @@ export function extractTextFromHtml(html) {
 //Katie testing implementaiton ------------------------------------------------------------------------------------------------
 
 const askForSimilarity = async (text1, listofString) => {
-
-    //openAI api key auth
     const openai = new OpenAI({
         baseURL: "https://openrouter.ai/api/v1",
         apiKey: `${process.env.OPENAI_API_KEY}`,
-    })
+    });
 
     const cleanList = listofString.map(item => item.replace(/^\d+\.\s*/, "").trim());
+    const combineKeywords = cleanList.join(" ");
+    console.log(" \n\n\n\n\n\n\n\n\n\nHERE IS THE COMBINE", combineKeywords);
 
-    const combineKeywords = cleanList.join(" ")
-    console.log( " \n\n\n\n\n\n\n\n\n\nHERE IS THE COMBINE", combineKeywords)
+    try {
+        const completion = await openai.chat.completions.create({
+            model: "openchat/openchat-7b:free",
+            messages: [
+                {
+                    "role": "user",
+                    "content": `${combineKeywords} compared with ${text1} how related are these two texts, return only one number, 1 for related, 0 for unrelated topics, nothing more`,
+                }
+            ]
+        });
+    
+        if (completion && completion.choices && completion.choices.length > 0) {
+            const message = completion.choices[0].message.content;
+            console.log("THIS IS WITHIN WEB SCRAPER:", message);
+    
+            // Check if the message contains '1' or '0' and return a boolean value
+            if (message.includes('1')) {
+                return true; // Texts are related
+            } else if (message.includes('0')) {
+                return false; // Texts are unrelated
+            } else {
+                console.warn('Unexpected response format:', message);
+                return null; // If neither '1' nor '0' is found
+            }
+        } else {
+            console.error('Error: No valid choices in OpenAI response', completion);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error with OpenAI API request:', error);
+        return null;
+    }
+    
+};
 
-    const completion = await openai.chat.completions.create({
-        model: "openchat/openchat-7b:free",
-        messages: [
-          {
-            "role": "user",
-            "content": `${combineKeywords} compared with ${text1} how related are these two texts, return only one number, 1 for related, 0 for unrelated topics, nothing more`,
-          }
-        ]
-      })
-      console.log("THIS IS WITHINWEB SCRAPER" , completion.choices[0].message)
-    return completion.choices[0].message
 
-    // const distance = natural.JaroWinklerDistance(text1, combineKeywords);
-    // return distance
-}
+const isGoogleSearch = (url) => {
+    const googleSearchPattern = /^https:\/\/www\.google\.com\/search/;
+    return googleSearchPattern.test(url);
+};
 
 export async function processUrl(url, wordBank) {
     console.log(`Fetching content from: ${url}`);
+
+    if (isGoogleSearch(url)) {
+        console.log('Skipping processing for Google search URL:', url);
+        return;
+    }
 
     const htmlContent = await fetchWebsiteContent(url);
     if (!htmlContent) {
