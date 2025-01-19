@@ -1,7 +1,7 @@
 import axios from "axios";
 import Button from "../../components/Button";
 import { useEffect, useState } from "react";
-import { FaX, FaGear } from "react-icons/fa6";
+import { FaX } from "react-icons/fa6";
 import ChangeTopic from "../../components/ChangeSetting/Topic";
 import ChangeDifficulty from "../../components/ChangeSetting/Difficulty";
 
@@ -56,10 +56,13 @@ function Popup() {
         <nav className="flex justify-between gap-4">
           <h1 className="font-bold text-4xl">onTrack</h1>
           <div className="flex gap-4 text-2xl">
-            <a id="settings" target="_blank" rel="noopener noreferrer">
+            {/* <a id="settings" target="_blank" rel="noopener noreferrer">
               <FaGear className="cursor-pointer hover:drop-shadow-md" />
-            </a>
-            <FaX className="cursor-pointer hover:drop-shadow-md" />
+            </a> */}
+            <FaX
+              className="cursor-pointer hover:drop-shadow-md"
+              onClick={() => window.close()}
+            />
           </div>
         </nav>
         <ChangeTopic />
