@@ -1,6 +1,9 @@
 // Import required libraries
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import {OpenAI} from 'openai';
+
+// import natural from 'natural'
 
 // Stopwords list (can be loaded dynamically if needed)
 const stopwords = new Set([
@@ -32,14 +35,137 @@ export function extractTextFromHtml(html) {
     $('script, style, noscript').remove();
 
     // Extract and clean text content
-    const text = $('body').text().replace(/\s+/g, ' ').trim();
+    const text = $('body').text()
+        .replace(/[^a-zA-Z\s]/g, '') 
+        .replace(/\s+/g, ' ')
+        .trim();
 
     if (!text) {
         console.warn('Warning: Extracted text is empty. Check the structure of the page.');
     }
 
+    console.log("\n\n\n\n\n\n\nTESTING SCRAPED TEXT IN WEBSCRAPER", text)
     return text;
 }
+
+
+
+
+
+//Katie testing implementaiton ------------------------------------------------------------------------------------------------
+const keywordBank = [
+    'Data',
+    'Measurement',
+    'Analysis',
+    'Probability',
+    'Inference',
+    'Population',
+    'Sample',
+    'Mean',
+    'Median',
+    'Mode',
+    'Standard deviation',
+    'Variance',
+    'Percentile',
+    'Correlation',
+    'Regression',
+    'Hypothesis testing',
+    'Confidence interval',
+    'P-value',
+    'Significance level',
+    'Chi-square test',
+    'T-test',
+    'ANOVA',
+    'Frequency distribution',
+    'Histogram',
+    'Box plot',
+    'Scatter plot',
+    'Normal distribution',
+    'Standard error',
+    'Sampling distribution',
+    'Non-parametric test',
+    'Bayesian statistics',
+    'Descriptive statistics',
+    'Inferential statistics',
+    'Exploratory data analysis',
+    'Confirmatory data analysis',
+    'Multivariate analysis',
+    'Time series analysis',
+    'Survival analysis',
+    'Predictive modeling',
+    'Resampling methods',
+    'Cross-validation',
+    'Bootstrapping',
+    'Permutation test',
+    'Data mining',
+    'Big data',
+    'Machine learning',
+    'Deep learning',
+    'Data visualization',
+    'Data interpretation',
+    'Data-driven decisions.'
+  ]
+
+const askForSimilarity = async (text1, listofString) => {
+
+    //openAI api key auth
+    const openai = new OpenAI({
+        baseURL: "https://openrouter.ai/api/v1",
+        apiKey: "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",
+    })
+
+    const combineKeywords = listofString.join(" ")
+    console.log( " \n\n\n\n\n\n\n\n\n\nHERE IS THE COMBINE", combineKeywords)
+
+    const completion = await openai.chat.completions.create({
+        model: "openchat/openchat-7b:free",
+        messages: [
+          {
+            "role": "user",
+            "content": `${combineKeywords} compared with ${text1} how related are these two texts, return 1 for related, 0 for unrelated topics`,
+          }
+        ]
+      })
+
+    console.log(completion.choices[0].message)
+
+    // const distance = natural.JaroWinklerDistance(text1, combineKeywords);
+    // return distance
+}
+
+export async function processUrl(url) {
+    console.log(`Fetching content from: ${url}`);
+
+    const htmlContent = await fetchWebsiteContent(url);
+    if (!htmlContent) {
+        console.error('Failed to fetch website content.');
+        return;
+    }
+
+    const text = extractTextFromHtml(htmlContent);
+    if (!text) {
+        console.error('No text content could be extracted from the HTML.');
+        return;
+    }
+
+    const keywords = extractKeywords(text);
+    const combinedKeywords = keywords.map((item) => item[0]).join(' ')
+    console.log("\n\n\n\n\nHERE IS THE COMBINED KEYWORDS FROM EXTRACTED", combinedKeywords);
+
+
+    askForSimilarity(combinedKeywords, keywordBank)
+    // console.log(distanceSim)
+
+}
+
+
+
+
+
+
+
+
+//END -------------------------------------------------------------------------------------------------------------------------
 
 // Extract keywords with enhancements
 export function extractKeywords(text, numKeywords = 10) {
@@ -68,23 +194,23 @@ export function extractKeywords(text, numKeywords = 10) {
 }
 
 // Main function that processes a given URL directly
-export async function processUrl(url) {
-    console.log(`Fetching content from: ${url}`);
+// export async function processUrl(url) {
+//     console.log(`Fetching content from: ${url}`);
 
-    const htmlContent = await fetchWebsiteContent(url);
-    if (!htmlContent) {
-        console.error('Failed to fetch website content.');
-        return;
-    }
+//     const htmlContent = await fetchWebsiteContent(url);
+//     if (!htmlContent) {
+//         console.error('Failed to fetch website content.');
+//         return;
+//     }
 
-    const text = extractTextFromHtml(htmlContent);
-    if (!text) {
-        console.error('No text content could be extracted from the HTML.');
-        return;
-    }
+//     const text = extractTextFromHtml(htmlContent);
+//     if (!text) {
+//         console.error('No text content could be extracted from the HTML.');
+//         return;
+//     }
 
-    const keywords = extractKeywords(text);
+//     const keywords = extractKeywords(text);
 
-    return keywords;
+//     return keywords;
 
-}
+// }

@@ -2,7 +2,7 @@ import { processUrl } from "./WebScrapper.js";
 import { Word2Embed } from "./Word2Embed.js";
 
 async function main() {
-    const url = "https://en.wikipedia.org/wiki/Computer_science"; // URL is passed directly
+    const url = "https://en.wikipedia.org/wiki/football"; // URL is passed directly
     let keywords = await processUrl(url);
 
     if (keywords.length === 0) {
@@ -10,17 +10,17 @@ async function main() {
         return;
     }
 
-    console.log(`Top keywords from ${url}:`);
+    // console.log(`Top keywords from ${url}:`);
     keywords.forEach(([keyword, count]) => {
-        console.log(`${keyword}: ${count}`);
+        // console.log(`${keyword}: ${count}`);
     });
 
     let listOfWords = keywords.map(([keyword, count]) => keyword);
 
     let embedded = await Word2Embed(listOfWords);
 
-    console.log("Embedded NLP Features:");
-    console.log(embedded);
+    // console.log("Embedded NLP Features:");
+    // console.log(embedded);
 }
 
 main().catch((error) => {
