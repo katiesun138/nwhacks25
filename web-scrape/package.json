@@ -1,10 +1,11 @@
 {
+  "type": "module",
   "dependencies": {
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "jsdom": "^26.0.0",
-    "node-word2vec": "^0.0.8",
-    "word2vec": "^1.1.5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.35",

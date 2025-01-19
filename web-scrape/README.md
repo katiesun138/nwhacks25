@@ -1,3 +1,1 @@
-TESTING 1 2 3
-TESTING 1 2 3
-TESTING 1 2 3
+run 'node WebScrapper.js https://en.wikipedia.org/wiki/Computer_science'

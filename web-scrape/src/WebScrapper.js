@@ -2,15 +2,16 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
+
 // Stopwords list (can be loaded dynamically if needed)
-const stopwords: Set<string> = new Set([
+const stopwords = new Set([
     'the', 'is', 'in', 'and', 'to', 'a', 'of', 'it', 'that', 'on', 'for', 'with', 'as',
     'was', 'at', 'by', 'an', 'be', 'this', 'which', 'or', 'from', 'are', 'but', 'not',
     'have', 'has', 'you', 'they', 'we', 'can', 'their', 'its', 'if', 'will', 'so', 'do'
 ]);
 
 // Fetch website content with improved error handling
-export async function fetchWebsiteContent(url: string): Promise<string | null> {
+async function fetchWebsiteContent(url) {
     try {
         const response = await axios.get(url, { timeout: 10000 }); // 10-second timeout
         return response.data;
@@ -25,7 +26,7 @@ export async function fetchWebsiteContent(url: string): Promise<string | null> {
 }
 
 // Extract text from HTML, handling edge cases
-export function extractTextFromHtml(html: string): string {
+function extractTextFromHtml(html) {
     const $ = cheerio.load(html);
 
     // Remove script and style tags
@@ -42,7 +43,7 @@ export function extractTextFromHtml(html: string): string {
 }
 
 // Extract keywords with enhancements
-export function extractKeywords(text: string, numKeywords: number = 10): [string, number][] {
+function extractKeywords(text, numKeywords = 10) {
     const words = text
         .toLowerCase()
         .replace(/[^a-zA-Z\s]/g, '') // Remove non-alphanumeric characters
@@ -56,7 +57,7 @@ export function extractKeywords(text: string, numKeywords: number = 10): [string
     }
 
     // Count word frequencies
-    const wordCounts: Record<string, number> = {};
+    const wordCounts = {};
     for (const word of filteredWords) {
         wordCounts[word] = (wordCounts[word] || 0) + 1;
     }
@@ -67,9 +68,8 @@ export function extractKeywords(text: string, numKeywords: number = 10): [string
         .slice(0, numKeywords);
 }
 
-
 // Main function with better UX and logging
-async function main(url: string): Promise<void> {
+async function main(url) {
     console.log(`Fetching content from: ${url}`);
 
     const htmlContent = await fetchWebsiteContent(url);
@@ -108,5 +108,3 @@ if (!inputUrl) {
 main(inputUrl).catch(error => {
     console.error(`Unexpected error: ${error}`);
 });
-
-
