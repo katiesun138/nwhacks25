@@ -59,7 +59,7 @@ const askForSimilarity = async (text1, listofString) => {
     //openAI api key auth
     const openai = new OpenAI({
         baseURL: "https://openrouter.ai/api/v1",
-        apiKey: "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",
+        apiKey: "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",
     })
 
     const combineKeywords = listofString.join(" ")
