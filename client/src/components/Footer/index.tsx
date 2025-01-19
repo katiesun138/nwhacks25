@@ -52,14 +52,14 @@ export default function Footer() {
 function Name ({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
     const y = useTransform(scrollProgress, [0, 1], [-225, 0]);
     return (
-        <div className="h-[200px] bg-bg-dark overflow-hidden mt-4">
+        <div className="h-[200px] bg-primary overflow-hidden mt-4">
             <motion.div
             initial={{ opacity:0 }}
             whileInView={{ opacity: 1 }}
                 style={{ y }}
-                className="h-full bg-bg-dark text-pretty text-2xl font-bold flex justify-center gap-10 items-center p-5"
+                className="h-full bg-primary text-white text-pretty text-2xl font-bold flex justify-center gap-10 items-center p-5"
             >
-                onTrack @ nwHacks 2025
+                onTrack @ 2025
             </motion.div>
         </div>
     );

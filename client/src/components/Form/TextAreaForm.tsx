@@ -22,7 +22,7 @@ export default function TextAreaForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 outline-none">
       <Input
         error={error}
         label={labelText}

@@ -10,10 +10,8 @@ import ModeSection from "../../components/Landing/ModeSection";
 function LandingPage() {
   useEffect(() => {
     const lenis = new Lenis();
-
     function raf(time: DOMHighResTimeStamp): void {
       lenis.raf(time);
-
       requestAnimationFrame(raf);
     }
 
@@ -31,14 +29,14 @@ function LandingPage() {
     <>
       <NavBar />
       <motion.div
-        className="w-full flex flex-col items-center justify-center gap-4"
+        className="w-full flex flex-col items-center overflow-x-hidden justify-center gap-8 md:gap-12"
         initial={{ opacity: 1 }}
         animate={{ opacity: pageTransition ? 0 : 1 }}
         transition={{ duration: 0.5 }}
       >
         <HeroSection onExit={onPageTransition} />
         <InfoSection />
-        <ModeSection/>
+        <ModeSection />
         <CTASection />
         <Footer />
       </motion.div>

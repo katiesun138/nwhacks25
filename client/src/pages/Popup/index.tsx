@@ -31,7 +31,7 @@ function Popup() {
       );
       console.log(response.data);
     } catch (error) {
-      console.error("Error in request");
+      console.error(error);
     }
   };
 
@@ -52,7 +52,7 @@ function Popup() {
 
   return (
     <>
-      <div className="container mx-auto p-4 flex flex-col gap-3 rounded-lg border-2 min-w-[350px] md:min-w-[500px]">
+      <div className="container mx-auto p-4 flex flex-col gap-3 rounded-lg border-2 min-w-[350px] md:min-w-[500px] shadow-md">
         <nav className="flex justify-between gap-4">
           <h1 className="font-bold text-4xl">onTrack</h1>
           <div className="flex gap-4 text-2xl">

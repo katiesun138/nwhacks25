@@ -31,7 +31,7 @@ export default function NavBar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="flex bg-bg-dark rounded-xl items-center gap-4 max-w-screen-xl w-full justify-between py-4 mt-2 px-6 lg:px-4">
+      <div className="flex bg-bg-dark rounded-xl items-center gap-4 max-w-screen-xl w-full justify-between py-2 mt-2 px-6 lg:px-4 drop-shadow-md">
         <h2
           onClick={() => handleHomeClick()}
           className="text-2xl font-bold cursor-pointer"
@@ -40,17 +40,26 @@ export default function NavBar() {
         </h2>
         <ul className="flex gap-4 md:gap-8">
           <li onClick={() => handleHomeClick()}>
-            <p title="Home" className="text-lg cursor-pointer">
+            <p
+              title="Home"
+              className="text-lg cursor-pointer p-2 rounded-xl hover:bg-bg-light transition-all"
+            >
               Home
             </p>
           </li>
           <li onClick={() => handleFeaturesClick()}>
-            <p title="Features" className="text-lg cursor-pointer">
+            <p
+              title="Features"
+              className="text-lg cursor-pointer p-2 rounded-xl hover:bg-bg-light transition-all"
+            >
               Features
             </p>
           </li>
-          <li>
-            <a href={optionsPageUrl} className="text-lg">
+          <li className="flex items-center">
+            <a
+              href={optionsPageUrl}
+              className="text-lg cursor-pointer p-2 rounded-xl hover:bg-bg-light transition-all"
+            >
               Dashboard
             </a>
           </li>
