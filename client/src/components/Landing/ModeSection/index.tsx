@@ -7,9 +7,9 @@ export default function ModeSection() {
     return (
       <Section className="">
         <div className="flex flex-col gap-4">
-          <h2 className="font-bold text-2xl">
+          <motion.h2 className="font-bold text-2xl" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }}>
             Different levels of procrastination prevention
-          </h2>
+          </motion.h2>
           <div className="flex flex-col gap-4">
             <ModeItem
               title="Light"
@@ -53,15 +53,18 @@ function ModeItem({
         [x]
       );
     return (
-      <div
-        className="relative cursor-pointer"
+      <motion.div
+        className="relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
       >
         <AnimatePresence>
           <label
             className={twMerge(
-              `text-gray-700 flex items-center gap-3 hover:border-l-primary-light hover:bg-bg-dark rounded-md border-l-[.2rem] py-1 px-2 transition-all border-l-transparent text-pretty ${
+              `text-gray-700 flex items-center gap-3 hover:border-l-primary-light hover:bg-bg-dark rounded-md border-l-[.2rem] py-2 px-2 transition-all border-l-transparent text-pretty ${
                 isHovered ? "bg-bg-light border-l-primary" : ""
               }`
             )}
@@ -73,10 +76,8 @@ function ModeItem({
             }}
           >
             <div className="flex gap-2 md:items-center flex-col md:flex-row justify-start">
-            <h3 className="font-bold text-xl">
-            {title}:
-            </h3>
-            {description}
+              <h3 className="font-bold text-xl">{title}:</h3>
+              {description}
             </div>
             <AnimatePresence>
               {isHovered && (
@@ -99,35 +100,34 @@ function ModeItem({
           </label>
         </AnimatePresence>
 
-        {/* Video Tooltip */}
         <AnimatePresence mode="popLayout">
           {showImage && (
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.6 }}
+              initial={{ opacity: 0, y: 1, scale: 0.6 }}
               animate={{
                 opacity: 1,
                 y: 0,
                 scale: 1,
                 transition: {
-                  stiffness: 260,
+                  stiffness: 200,
                   damping: 10,
                   duration: 0.4,
                 },
                 width: "350px",
                 height: "auto",
               }}
-              exit={{ opacity: 0, y: 20, scale: 0.6 }}
+              exit={{ opacity: 0, y: 15, scale: 0.6 }}
               style={{
                 translateX: x,
               }}
               className="absolute top-full mt-1 z-50"
             >
               <motion.div className="rounded-lg border-2 shadow-md overflow-hidden ">
-              <img src={image}/>
-            </motion.div>
+                <img src={image} />
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     );
 }

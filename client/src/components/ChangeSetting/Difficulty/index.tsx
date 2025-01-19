@@ -2,7 +2,7 @@ import { useState } from "react";
 import SelectForm from "../../Form/SelectForm";
 export default function ChangeDifficulty() {
   const [currentDifficulty, setCurrentDifficulty] = useState(
-    localStorage.getItem("difficulty") || "medium"
+    localStorage.getItem("difficulty") || "hard"
   );
 
   function changeDifficulty(event: React.ChangeEvent<HTMLInputElement>) {

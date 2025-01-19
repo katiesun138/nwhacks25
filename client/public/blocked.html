@@ -21,8 +21,8 @@
       height: 100vh;
       text-align: center;
       flex-direction: column;
-      gap: .6rem;
-      background-color: #f3f4f6;
+      gap: .7rem;
+      background: linear-gradient(90deg, #f4f4f4, #e7efff);
     }
 
     .emoji {
@@ -38,34 +38,30 @@
 
     .subheading {
       color: #4b5563;
-      width: 80%;
-      /* Tailwind's text-gray-700 */
+      width: 50%;
+      text-wrap: balance;
       font-size: 1.125rem;
-      /* Equivalent to Tailwind's default text size */
+    }
+    @media screen and (max-width: 768px) {
+      .subheading {
+        width: 80%;
+      }
     }
 
-    /* Button container styling */
     .button-container {
       display: flex;
       gap: 1rem;
-      /* Tailwind's gap-3 */
     }
 
-    /* Button styling */
     .button {
       display: flex;
       gap: 0.5rem;
-      /* Tailwind's gap-2 */
       padding: 0.5rem 1.25rem;
-      /* Tailwind's py-2 px-5 */
       font-weight: 500;
-      /* Tailwind's font-medium */
       text-align: center;
       border-radius: 0.75rem;
-      /* Tailwind's rounded-xl */
       border: solid 2px;
       transition: background-color 0.3s ease-in-out;
-      /* Tailwind's transition-all */
       cursor: pointer;
       text-decoration: none;
     }
@@ -73,31 +69,23 @@
     .close-tab {
       color: rgb(11, 11, 11);
       background-color: #e7e7e7;
-      /* Tailwind's bg-zinc-500 */
       border-color: #626569;
-      /* Tailwind's border-zinc-300 */
     }
 
     .close-tab:hover {
       background-color: #d4d6d8;
-      /* Tailwind's hover:bg-zinc-700 */
       border-color: #374151;
-      /* Tailwind's border-zinc-700 */
     }
 
     .change-topic {
       color: white;
       background-color: #151414;
-      /* Tailwind's bg-zinc-500 */
       border-color: #626467;
-      /* Tailwind's border-zinc-300 */
     }
 
     .change-topic:hover {
       background-color: #4b5563;
-      /* Tailwind's hover:bg-zinc-700 */
       border-color: #374151;
-      /* Tailwind's border-zinc-700 */
     }
   </style>
 </head>
@@ -105,7 +93,7 @@
 <body>
   <p class="emoji">🙂‍↔️</p>
   <h1 class="heading">Access Denied</h1>
-  <p class="subheading">Let's get back on track, the website you are trying to access has been blocked.</p>
+  <p class="subheading">Let's get back on track, the website you are trying to access has been blocked because it doesn't match your current topic.</p>
   <div class="button-container">
     <a href="javascript:window.close()" class="button close-tab">Close Tab</a>
     <a href="" id="change" class="button change-topic">Change Topic</a>

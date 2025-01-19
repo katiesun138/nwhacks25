@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ChangeTopic from "../../components/ChangeSetting/Topic";
 import ChangeDifficulty from "../../components/ChangeSetting/Difficulty";
 import { motion } from "motion/react";
+// import { DoughnutComponent } from "../../components/Charts";
 function Dashboard() {
   const [extensionActivated, setExtensionActivated] = useState(
     localStorage.getItem("extensionActivated") === "true"
@@ -15,7 +16,9 @@ function Dashboard() {
 
   const items = [
     <div>
-      <h2 className="text-4xl font-bold">Welcome to onTrack!</h2>
+      <h2 className="text-4xl text-pretty font-bold leading-tight">
+        Welcome to onTrack's Dashboard
+      </h2>
     </div>,
     <div className="flex flex-col gap-2">
       <ChangeTopic />
@@ -25,9 +28,8 @@ function Dashboard() {
     <div></div>,
     <div></div>,
     <div></div>,
-    <div></div>,
-    <div></div>,
   ];
+  // <DoughnutComponent />,
   return (
     <>
       <motion.div

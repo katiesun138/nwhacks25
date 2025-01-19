@@ -13,7 +13,7 @@ export default {
         "secondary": "#292525",
         'text:': "#1D1A1A",
         "bg-primary": "#F5F5F5",
-        "bg-dark": "#F0ECEC",
+        "bg-dark": "#F2F2F2",
         "bg-light": "#EDEDED",
       },
       backgroundImage: {
