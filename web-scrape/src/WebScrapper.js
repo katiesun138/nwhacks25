@@ -2,6 +2,8 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import {OpenAI} from 'openai';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // import natural from 'natural'
 
@@ -59,7 +61,7 @@ const askForSimilarity = async (text1, listofString) => {
     //openAI api key auth
     const openai = new OpenAI({
         baseURL: "https://openrouter.ai/api/v1",
-        apiKey: "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",
+        apiKey: `${process.env.OPENAI_API_KEY}`,
     })
 
     const combineKeywords = listofString.join(" ")

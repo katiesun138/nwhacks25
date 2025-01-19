@@ -5,6 +5,10 @@ import TextAreaForm from "./components/Form/TextAreaForm";
 import { useEffect, useState } from "react";
 import { FaX } from 'react-icons/fa6';
 
+interface UserStudy {
+  study: string;
+}
+
 function App() {
   const [currentTopic, setCurrentTopic] = useState(
     localStorage.getItem("currentTopic") || "You have not selected any topic"
@@ -26,7 +30,7 @@ function App() {
     setCurrentTopic(value);
     localStorage.setItem("currentTopic", value);
 
-    const userStudy = {
+    const userStudy: UserStudy = {
       study: value 
     };
     postAPI(userStudy);
@@ -40,7 +44,7 @@ function App() {
     // CHANGE ON FAILURE BEHAVIOUR
   }
 
-  const postAPI = async(userStudy) => {
+  const postAPI = async(userStudy:UserStudy) => {
     try{
       const response = await axios.post("http://localhost:8080/verify", userStudy)
       console.log(response.data)
