@@ -198,6 +198,8 @@ async function isSimilar(text1, text2) {
 
     const similarity = cosineSimilarity(vector1, vector2);
     console.log(`Cosine Similarity: ${similarity}`);
+    const threshold = 0.000005;
+    return similarity > threshold;
 }
 
 
