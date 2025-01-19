@@ -2,6 +2,7 @@
     "manifest_version": 3,
     "version": "1.0.0",
     "name": "My First Vite App",
+    "options_page": "options.html",
     "action":{
         "default_popup": "index.html"
     },
