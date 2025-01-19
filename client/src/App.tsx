@@ -3,6 +3,11 @@ import Button from "./components/Button";
 import SelectForm from "./components/Form/SelectForm";
 import TextAreaForm from "./components/Form/TextAreaForm";
 import { useEffect, useState } from "react";
+import { FaX } from 'react-icons/fa6';
+
+interface UserStudy {
+  study: string;
+}
 
 function App() {
   const [currentTopic, setCurrentTopic] = useState(
@@ -24,6 +29,12 @@ function App() {
   function changeTopic(value: string) {
     setCurrentTopic(value);
     localStorage.setItem("currentTopic", value);
+
+    const userStudy: UserStudy = {
+      study: value 
+    };
+    postAPI(userStudy);
+
     // SEND API REQUEST TO NEW TOPIC
   }
 
@@ -33,16 +44,7 @@ function App() {
     // CHANGE ON FAILURE BEHAVIOUR
   }
 
-  const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
-    console.log(response.data.fruits)
-  }
-
-  const userStudy = {
-    study: "statistics" 
-  };
-
-  const postAPI = async() => {
+  const postAPI = async(userStudy:UserStudy) => {
     try{
       const response = await axios.post("http://localhost:8080/verify", userStudy)
       console.log(response.data)
@@ -52,19 +54,16 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    fetchAPI();
-    postAPI();
-  }, []);
-
 
   return (
     <>
       <div className="container mx-auto py-5 px-5 flex flex-col gap-3 rounded-lg border-2 min-w-[500px]">
-        {/* <nav className="flex justify-end gap-2">
-          <button onClick={()=>{}}>x</button>
-        </nav> */}
-        <div className="text-center">
+        <nav className="flex justify-end gap-2 -mb-4">
+            <p className='font-bold text-xl hover:cursor-pointer' onClick={() => window.close()}> 
+            <FaX />
+            </p>
+        </nav>
+        <div className="">
           <h1 className="font-bold text-4xl">OnTrack</h1>
         </div>
         <div className="flex flex-col gap-1">
@@ -79,6 +78,7 @@ function App() {
         </div>
         <div>
           <SelectForm
+            description="Please select the difficulty level:"
             currentDifficulty={currentDifficulty}
             onChange={changeDifficulty}
           />
