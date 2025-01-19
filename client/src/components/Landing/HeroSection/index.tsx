@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Spline from "./Spline";
 gsap.registerPlugin(ScrollToPlugin);
-export default function HeroSection({ onExit }: { onExit: () => void }) {
+export default function HeroSection() {
   const scrollToFeatures = () => {
     gsap.to(window, {
       duration: 1,
@@ -22,7 +22,8 @@ export default function HeroSection({ onExit }: { onExit: () => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className=" text-blue-950">onTrack</span>, your path to stay on the rails.
+            <span className=" text-blue-950">onTrack</span>, your path to stay
+            on the rails.
           </motion.h1>
           <motion.blockquote
             className="text-lg text-pretty"
@@ -40,9 +41,9 @@ export default function HeroSection({ onExit }: { onExit: () => void }) {
               transition={{ duration: 0.45, delay: 0.7 }}
             >
               <motion.div>
-                <Button className="w-full" onClick={onExit}>
-                  Get Started
-                </Button>
+                <a href="https://github.com/katiesun138/nwhacks25/packages">
+                  <Button className="w-full">Get Started</Button>
+                </a>
               </motion.div>
             </motion.div>
             <motion.div

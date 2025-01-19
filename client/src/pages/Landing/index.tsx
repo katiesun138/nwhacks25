@@ -2,7 +2,7 @@ import Footer from "../../components/Footer";
 import HeroSection from "../../components/Landing/HeroSection";
 import InfoSection from "../../components/Landing/InfoSection";
 import CTASection from "../../components/Landing/CTA";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 import NavBar from "../../components/NavBar";
 import { motion } from "motion/react";
@@ -18,23 +18,17 @@ function LandingPage() {
     requestAnimationFrame(raf);
   }, []);
 
-  const [pageTransition, setPageTransition] = useState(false);
-  const onPageTransition = () => {
-    setPageTransition(true);
-    setTimeout(() => {
-      window.location.href = "/options";
-    }, 1200);
-  };
+  
   return (
     <>
       <NavBar />
       <motion.div
         className="w-full flex flex-col items-center overflow-x-hidden justify-center gap-8 md:gap-12"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: pageTransition ? 0 : 1 }}
-        transition={{ duration: 0.5 }}
+        // initial={{ opacity: 1 }}
+        // animate={{ opacity: pageTransition ? 0 : 1 }}
+        // transition={{ duration: 0.5 }}
       >
-        <HeroSection onExit={onPageTransition} />
+        <HeroSection />
         <InfoSection />
         <ModeSection />
         <CTASection />
