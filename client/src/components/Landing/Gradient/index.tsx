@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Section from "../../Section";
+import { twMerge } from "tailwind-merge";
 const GradientPosition = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -30,7 +31,7 @@ export default function GradientSection({
           GradientPosition().x
         }px ${GradientPosition().y}px, #E7F9FC 5% , white )`,
       }}
-      className={className}
+      className={twMerge(``, className)}
       id="home"
     >
       <Section className="mt-48">{children}</Section>

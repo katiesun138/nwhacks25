@@ -31,14 +31,14 @@ function LandingPage() {
     <>
       <NavBar />
       <motion.div
-        className="w-full flex flex-col items-center justify-center gap-4"
+        className="w-full flex flex-col items-center overflow-x-hidden justify-center gap-10"
         initial={{ opacity: 1 }}
         animate={{ opacity: pageTransition ? 0 : 1 }}
         transition={{ duration: 0.5 }}
       >
         <HeroSection onExit={onPageTransition} />
         <InfoSection />
-        <ModeSection/>
+        <ModeSection />
         <CTASection />
         <Footer />
       </motion.div>

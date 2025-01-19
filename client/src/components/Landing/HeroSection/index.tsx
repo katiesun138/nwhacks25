@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import GradientSection from "../Gradient";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import Spline from "./Spline";
 gsap.registerPlugin(ScrollToPlugin);
 export default function HeroSection({ onExit }: { onExit: () => void }) {
   const scrollToFeatures = () => {
@@ -12,8 +13,8 @@ export default function HeroSection({ onExit }: { onExit: () => void }) {
     });
   };
   return (
-    <GradientSection className="w-full min-h-[80dvh] md:min-h-[100dvh] h-full">
-      <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+    <GradientSection className="w-full min-h-[80dvh] md:min-h-[100dvh]">
+      <div className="grid grid-cols-1 md:grid-cols-2 h-full gap-5 w-full">
         <div className="flex flex-col gap-3 h-full">
           <motion.h1
             className="text-5xl font-bold text-pretty leading-tight"
@@ -58,7 +59,8 @@ export default function HeroSection({ onExit }: { onExit: () => void }) {
             </motion.div>
           </div>
         </div>
-        <div className="flex items-end justify-end">
+        <div className="flex items-end justify-end relative w-full h-full">
+          <Spline/>
         </div>
       </div>
     </GradientSection>
