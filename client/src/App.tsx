@@ -28,7 +28,7 @@ function App() {
 
   function changeTopic(value: string) {
     setCurrentTopic(value);
-    localStorage.setItem("currentTopic", value);
+    localStorage.setItem("currentTopic", value);    
 
     const userStudy: UserStudy = {
       study: value 

@@ -1,6 +1,11 @@
 import { useState } from "react";
 import TextAreaForm from "../../Form/TextAreaForm";
 import axios from "axios";
+
+interface UserStudy {
+  study: string;
+}
+
 export default function ChangeTopic() {
   const [currentTopic, setCurrentTopic] = useState(
     localStorage.getItem("currentTopic") || "You have not selected any topic"
@@ -14,10 +19,9 @@ export default function ChangeTopic() {
       study: value,
     };
     postAPI(userStudy);
-
   }
 
-  const postAPI = async (userStudy) => {
+  const postAPI = async (userStudy: UserStudy) => {
     try {
       const response = await axios.post(
         "http://localhost:8080/verify",
@@ -25,7 +29,7 @@ export default function ChangeTopic() {
       );
       console.log(response.data);
     } catch (error) {
-      console.error("Error in request");
+      console.error(error);
     }
   };
   return (

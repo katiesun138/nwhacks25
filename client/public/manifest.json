@@ -1,11 +1,15 @@
 {
   "manifest_version": 3,
-  "version": "1.0.0",
-  "name": "onTrack",
-  "description": "Stay focused with onTrack",
+  "name": "Block Sites Based on Similarity",
+  "version": "1.0",
+  "description": "Block sites based on a similarity check",
+  "permissions": ["tabs", "webNavigation", "activeTab", "storage"],
   "options_page": "options.html",
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["tabs", "storage", "activeTab"]
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": ["http://*/*", "https://*/*"]
 }
