@@ -1,8 +1,8 @@
 import BentoGrid from "../../components/BentoGrid";
-import Button from "../../components/Button";
 import { useEffect, useState } from "react";
 import ChangeTopic from "../../components/ChangeSetting/Topic";
 import ChangeDifficulty from "../../components/ChangeSetting/Difficulty";
+import { motion } from "motion/react";
 function Dashboard() {
   const [extensionActivated, setExtensionActivated] = useState(
     localStorage.getItem("extensionActivated") === "true"
@@ -14,36 +14,32 @@ function Dashboard() {
   }, [extensionActivated]);
 
   const items = [
-    <div className="flex flex-col gap-2">
-      <ChangeTopic/>
+    <div>
+      <h2 className="text-4xl font-bold">Welcome to onTrack!</h2>
     </div>,
-    <ChangeDifficulty/>,
+    <div className="flex flex-col gap-2">
+      <ChangeTopic />
+    </div>,
+    <div className="flex flex-col gap-2"></div>,
+    <ChangeDifficulty />,
     <div></div>,
-    <div className="flex flex-col gap-2">
-      <h2 className="font-bold text-xl">Welcome</h2>
-      <Button
-        onClick={() => {
-          setExtensionActivated(!extensionActivated);
-        }}
-      >
-        {extensionActivated ? "Pause" : "Activate"}
-      </Button>
-    </div>,
+    <div></div>,
     <div></div>,
     <div></div>,
     <div></div>,
   ];
   return (
     <>
-      <div className="w-full flex items-center justify-center">
-        <div className="w-full p-4 flex flex-col gap-3 max-w-screen-2xl ">
-          <div className="flex flex-col w-full gap-1">
-            <h1 className="font-bold text-4xl">onTrack</h1>
-            <h2 className="text-xl">Settings</h2>
-          </div>
+      <motion.div
+        className="w-full lg:h-[100dvh] flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <div className="w-full p-4 flex flex-col justify-center items-center gap-3 max-w-screen-xl h-full">
           <BentoGrid items={items} />
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
