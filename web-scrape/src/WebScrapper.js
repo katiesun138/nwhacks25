@@ -84,13 +84,7 @@ export async function processUrl(url) {
     }
 
     const keywords = extractKeywords(text);
-    if (keywords.length === 0) {
-        console.error('No keywords could be extracted from the text.');
-        return;
-    }
 
-    console.log(`Top keywords from ${url}:`);
-    keywords.forEach(([keyword, count]) => {
-        console.log(`${keyword}: ${count}`);
-    });
+    return keywords;
+
 }
