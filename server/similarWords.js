@@ -1,12 +1,17 @@
 import axios from 'axios'
 import {OpenAI} from 'openai';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
 
 
 const getSimilarWords = async(keyword) => {
 
     const openai = new OpenAI({
         baseURL: "https://openrouter.ai/api/v1",
-        apiKey: "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",
+        apiKey: `${process.env.OPENAI_API_KEY}`,
     })
 
     const openaiChat = await openai.chat.completions.create({
